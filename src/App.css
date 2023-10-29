@@ -1,3 +1,7 @@
+:root {
+  --grey-like: #A89A8E;
+}
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -40,7 +44,7 @@
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
   box-sizing: border-box;
 }
 
@@ -51,13 +55,17 @@
 }
 
 .drum-pad {
-  background-color: gray;
+  background-color: var(--grey-like);
   margin: 0.2rem;
   text-align: center;
   padding: 1rem;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.drum-pad:hover {
+  background-color: #D5CBBF;
 }
 
 .control-wrapper {
@@ -115,11 +123,16 @@
 }
 
 .audio-clip-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  background-color: grey;
+  background-color: #A89A8E;
   border: 2px sold red;
   text-align: center;
   padding: 0.5rem;
+  min-height: 30%;
+  font-weight: bold;
 }
 
 .volume-bar {
