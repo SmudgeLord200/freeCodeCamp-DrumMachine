@@ -23,10 +23,32 @@ function App() {
             <div className="drum-pad" id="Closed-HH">C</div>
           </div>
           <div className='control-wrapper'>
-            <div className='power'>Power</div>
+            <div className='power'>
+              <p>Power</p>
+              {/* add onClick listener */}
+              <input type="checkbox" id="checkbox-input" />
+              <label
+                htmlFor='checkbox-input'
+                className='slider-container'
+              >
+                <div className={`inner right`}></div>
+              </label>
+            </div>
             <div className='audio-clip-display'></div>
-            <div className='toggle-bar'></div>
-            <div className='power-swicth'>Bank</div>
+            <div className='volume-bar'>
+              <input type="range" min={0} max={100} step={1} />
+            </div>
+            <div className='bank'>
+              <p>Bank</p>
+              {/* add onClick listener */}
+              <input type="checkbox" id="checkbox-input-2" />
+              <label
+                htmlFor='checkbox-input-2'
+                className='slider-container'
+              >
+                <div className={`inner`}></div>
+              </label>
+            </div>
           </div>
         </div>
       </div>
