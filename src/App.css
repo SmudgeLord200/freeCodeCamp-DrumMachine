@@ -37,7 +37,6 @@
 .drum-header h5 {
   padding-right: 0.2rem;
 }
-/* drum header */
 
 /* display */
 #display {
@@ -45,7 +44,7 @@
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-  padding-bottom: 2rem;
+  padding-bottom: 4rem;
   box-sizing: border-box;
 }
 
@@ -64,10 +63,17 @@
   border-radius: 5px;
   cursor: pointer;
   border: 0;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
 }
 
-.drum-pad:hover {
+/* .drum-pad:hover {
   background-color: #D5CBBF;
+} */
+
+.active {
+  background-color: orange;
 }
 
 .control-wrapper {
@@ -180,5 +186,28 @@ footer {
     margin-top: 1rem;
     width: 100%;
     gap: 1rem 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .drum-pad-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .drum-pad {
+    font-size: 0.6rem;
+    padding: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 280px) {
+  .drum-pad-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .drum-pad {
+    font-size: 0.6rem;
+    padding: 0.6rem;
+    width: 45%;
   }
 }

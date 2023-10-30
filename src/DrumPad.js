@@ -12,6 +12,10 @@ const DrumPad = ({ clip, power, setActiveKey }) => {
     const onPlayClip = (clip) => {
         document.getElementById(clip.keyTrigger)?.play().catch((e) => console.log(e));
         power && setActiveKey(clip.id);
+        document.getElementById(clip.id)?.classList.add('active');
+        setTimeout(() => {
+            document.getElementById(clip.id)?.classList.remove('active');
+        }, 500);
     }
 
     return (
