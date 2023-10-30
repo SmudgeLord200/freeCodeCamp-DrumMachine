@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { FaFreeCodeCamp } from 'react-icons/fa';
 import DrumPad from './DrumPad';
 import DrumHeader from './DrumHeader';
+import ControlWrapper from './ControlWrapper';
 
 const bankOne = [
   {
@@ -61,65 +62,137 @@ const bankOne = [
   }
 ];
 
-function App() {
-  const [bank, setBank] = useState('Heater Kit');
-  const [power, setPower] = useState(true);
-
-  const onBankClick = () => {
-    setBank(prevBank => (prevBank === 'Heater Kit' ? 'Smooth-Piano-Kit' : 'Heater Kit'));
+const bankTwo = [
+  {
+    keyCode: 81,
+    keyTrigger: 'Q',
+    id: 'Chord-1',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
+  },
+  {
+    keyCode: 87,
+    keyTrigger: 'W',
+    id: 'Chord-2',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
+  },
+  {
+    keyCode: 69,
+    keyTrigger: 'E',
+    id: 'Chord-3',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
+  },
+  {
+    keyCode: 65,
+    keyTrigger: 'A',
+    id: 'Shaker',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
+  },
+  {
+    keyCode: 83,
+    keyTrigger: 'S',
+    id: 'Open-HH',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
+  },
+  {
+    keyCode: 68,
+    keyTrigger: 'D',
+    id: 'Closed-HH',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
+  },
+  {
+    keyCode: 90,
+    keyTrigger: 'Z',
+    id: 'Punchy-Kick',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
+  },
+  {
+    keyCode: 88,
+    keyTrigger: 'X',
+    id: 'Side-Stick',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
+  },
+  {
+    keyCode: 67,
+    keyTrigger: 'C',
+    id: 'Snare',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
   }
+];
+
+const soundsName = {
+  heaterKit: "Heater Kit",
+  smoothPianoKit: "Smooth Piano Kit"
+};
+
+const soundsGroup = {
+  heaterKit: bankOne,
+  smoothPianoKit: bankTwo
+}
+
+function App() {
+  const [kit, setKit] = useState("heaterKit");
+  const [pad, setPad] = useState(soundsGroup[kit]);
+  const [power, setPower] = useState(true);
+  const [activeKey, setActiveKey] = useState('');
+  const [volume, setVolume] = useState(1);
+
   const onPowerClick = () => {
     setPower((prev) => !prev);
   }
 
+  const onKitClick = () => {
+    setActiveKey('');
+    if (kit === "heaterKit") {
+      setKit("smoothPianoKit");
+      setPad(soundsGroup.smoothPianoKit);
+    } else {
+      setKit("heaterKit");
+      setPad(soundsGroup.heaterKit);
+    }
+  }
+
+  const onVolumeClick = (e) => {
+    setVolume(e.target.value)
+  }
+
+  const setKeyVolume = () => {
+    const audio = pad.map(sound => document.getElementById(sound.keyTrigger));
+    audio.forEach(audio => {
+      if (audio) {
+        audio.volume = volume;
+      }
+    })
+  }
+
   return (
     <div className='wrapper'>
+      {setKeyVolume()}
       <div id="drum-machine">
         <DrumHeader />
         <div id="display">
-          {/* Nine clickable elements */}
           <div className='drum-pad-wrapper'>
-            {bankOne.map((b, index) => {
+            {pad.map((clip, index) => {
               return (
                 <DrumPad
-                  keyTrigger={b.keyTrigger}
-                  id={b.id}
-                  url={b.url}
-                  clip={b}
+                  key={index}
+                  clip={clip}
+                  power={power}
+                  setActiveKey={setActiveKey}
                 />
               )
             })}
           </div>
-          <div className='control-wrapper'>
-            <div className='power'>
-              <p>Power: {power ? 'on' : 'off'}</p>
-              {/* add onClick listener */}
-              <input type="checkbox" id="checkbox-input" onClick={onPowerClick} />
-              <label
-                htmlFor='checkbox-input'
-                className='slider-container'
-              >
-                <div className={`inner right`}></div>
-              </label>
-            </div>
-            <div className='audio-clip-display'>{power && bank ? bank : ''}</div>
-            <div className='volume-bar'>
-              <input type="range" min={0} max={100} step={1} />
-            </div>
-            <div className='bank'>
-              <p>Bank</p>
-              {/* add onClick listener */}
-              <input type="checkbox" id="checkbox-input-2" onClick={onBankClick} />
-              <label
-                htmlFor='checkbox-input-2'
-                className='slider-container'
-              >
-                <div className={`inner`}></div>
-              </label>
-            </div>
-          </div>
+          <ControlWrapper
+            power={power}
+            onPowerClick={onPowerClick}
+            name={power && (activeKey || soundsName[kit])}
+            volume={volume}
+            onVolumeClick={onVolumeClick}
+            onKitClick={onKitClick}
+          />
         </div>
       </div>
+      <footer>For Noel</footer>
     </div>
   );
 }

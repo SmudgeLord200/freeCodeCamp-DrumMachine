@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const DrumPad = ({ keyTrigger, id, url, clip }) => {
+const DrumPad = ({ clip, power, setActiveKey }) => {
+
+    useEffect(() => {
+        document.addEventListener('keydown', (event) => {
+            const obj = { keyTrigger: event.key.toUpperCase() };
+            onPlayClip(obj);
+        });
+    }, []);
+
     const onPlayClip = (clip) => {
-        document.getElementById(clip.keyTrigger)?.play();
+        document.getElementById(clip.keyTrigger)?.play().catch((e) => console.log(e));
+        power && setActiveKey(clip.id);
     }
 
     return (
-        <div className="drum-pad" id={clip.id} onClick={() => onPlayClip(clip)}>
-            {keyTrigger}
-            <audio src={url} id={clip.keyTrigger}></audio>
-        </div>
+        <button className="drum-pad" id={clip.id} onClick={() => onPlayClip(clip)}>
+            {clip.keyTrigger}
+            <audio className='clip' src={power ? clip.url : '#'} id={clip.keyTrigger}></audio>
+        </button>
     )
 }
 

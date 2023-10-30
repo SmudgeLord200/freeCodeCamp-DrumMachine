@@ -1,5 +1,6 @@
 :root {
   --grey-like: #A89A8E;
+  --black: black;
 }
 
 .wrapper {
@@ -7,6 +8,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  flex-direction: column;
 }
 
 #drum-machine {
@@ -35,7 +37,6 @@
 .drum-header h5 {
   padding-right: 0.2rem;
 }
-
 /* drum header */
 
 /* display */
@@ -62,6 +63,7 @@
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
+  border: 0;
 }
 
 .drum-pad:hover {
@@ -74,7 +76,7 @@
   align-items: center;
   /* justify-content: center; */
   flex-direction: column;
-  gap: 10% 0;
+  gap: 5% 0;
 }
 
 .power,
@@ -84,20 +86,21 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
+  font-weight: bold;
 }
 
 .slider-container {
   position: relative;
-  border: 2px solid black;
+  border: 2px solid var(--black);
   width: 50px;
   height: 1rem;
-  background-color: black;
+  background-color: var(--black);
   box-sizing: border-box;
   cursor: pointer;
 }
 
 .inner {
-  border: 1px solid black;
+  border: 1px solid var(--black);
   position: absolute;
   background-color: blue;
   width: 50%;
@@ -127,7 +130,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #A89A8E;
+  background-color: var(--grey-like);
   border: 2px sold red;
   text-align: center;
   padding: 0.5rem;
@@ -137,7 +140,12 @@
 
 .volume-bar {
   width: 100%;
-  margin-top: 0.5rem;
+}
+
+.volume-bar p {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 2%;
 }
 
 .volume-bar input[type="range"] {
@@ -151,27 +159,12 @@
   cursor: pointer;
 }
 
-/* .volume-bar input[type="range"]::-webkit-slider-thumb,
-.volume-bar input[type="range"]::-moz-range-thumb,
-.volume-bar input[type="range"]::-ms-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  background-color: blue;
-  border-radius: 50%;
-  cursor: pointer;
+footer {
+  margin-top: 0.2rem;
+  color: #FFD700;
+  font-style: italic;
+  font-weight: bold;
 }
-
-.volume-bar input[type="range"]::-webkit-slider-runnable-track,
-.volume-bar input[type="range"]::-moz-range-track,
-.volume-bar input[type="range"]::-ms-track {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 0.6rem;
-  background-color: red;
-  border-radius: 50px;
-} */
 
 @media screen and (max-width: 768px) {
   #display {
@@ -180,11 +173,6 @@
 
   #drum-machine {
     padding: 0.5rem;
-  }
-
-  .drum-pad-wrapper {
-    grid-template-columns: 1fr;
-    justify-items: center;
   }
 
   .control-wrapper {
